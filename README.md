@@ -1,55 +1,54 @@
-# A repo about bundling issue in Nx
+# A Repository About Bundling Issues in Nx
 
-## how this project is organized:
+## How This Project Is Organized:
 
-![Alt text](<document/nx graph.png>)
+![Nx Graph](document/nx_graph.png)
 
-there is an angular project named `is-angular`. And
-there are 4 packages, `esbuild`, `vite`, `tsc` and `rollup`
+There is an Angular project named "is-angular", and there are four packages: `esbuild`, `vite`, `tsc`, and `rollup`.
 
-All packages have a dependency to `rollup` and 
-`rollup` is customized with a plugin to prove that none of these packages use the result of build as part of their bundling and transpilation
+All packages have a dependency on `rollup`, and `rollup` is customized with a plugin to ensure that none of these packages use the result of the build as part of their bundling and transpilation.
 
-question arise such as:
-1- the memory and load that is on each package/app build. instead of one time build and many time use, each usage graph is loaded by the each build
-2- can't enjoy faster bundlers like esbuild in combination with legacy bundlers like webpack as webpack run it's own set of optimization and esbuild make its own, but result and performance of each dosen't affect another one as each one do it's own transpiling.
-3- what exactly caching do? 
-4- some command like `ng serve` become much slower in nx as result of how all the packages need to get loaded into the webpack, instead of result of each package get loaded into that
+Some questions arise, such as:
 
-## how to test 
+1. The memory and load on each package/app build. Instead of a one-time build and many-time use, each usage graph is loaded by each builder.
+2. Can we benefit from faster bundlers like `esbuild` in combination with legacy bundlers like Webpack? Webpack runs its own set of optimizations, and `esbuild` does its own transpiling. The result and performance of each don't affect one another as each one handles its own transpilation.
+3. What exactly does caching nx do when each of the builder load the whole nx project on their own?
+4. Some commands like `ng serve` become much slower in Nx as a result of how all the packages need to be loaded into Webpack, instead of the result of each package being loaded individually.
 
-run `nx build is-angular --skip-nx-cache` this will build all 4 packages then let's view the dist folder and dissect each 
+## How to Test:
 
-let's start with the packages:
+Run `nx build is-angular --skip-nx-cache`. This will build all four packages. Let's then view the `dist` folder and dissect each one.
 
-#### rollup
-this is the package that is every other package is depends on has a plugin to replace build date time
-if you check `dist\packages\is-rollup\index.cjs.js` you can see that it works well. 
+Let's start with the packages:
 
-![roll up dist result](document/rollup_dist_result.png)
+#### Rollup
 
-#### esbuild 
-if we check the esbuild dist folder in `dist\packages\is-esbuild\index.cjs` we can see that it didn't use the result of tsc bundler and instead bundled it with esbuild 
+This is the package that every other package depends on and has a plugin to replace build date time. If you check `dist\packages\is-rollup\index.cjs.js`, you can see that it works well.
 
-![esbuild dist result](document/esbuild_dist_result.png)
+![Rollup Dist Result](document/rollup_dist_result.png)
 
-#### vite
-if we check the esbuild dist folder in `dist\packages\is-vite\index.js` we can see that it didn't use the result of tsc bundler and instead bundled it with esbuild 
+#### Esbuild
 
-![Alt text](document/vite_dist_result.png)
+If we check the Esbuild dist folder in `dist\packages\is-esbuild\index.cjs`, we can see that it didn't use the result of the TSC bundler and instead bundled it with Esbuild.
 
-#### tsc
-it's hard to tell, because the tsc requires a package
+![Esbuild Dist Result](document/esbuild_dist_result.png)
 
-![tsc dist result](document/tsc_dist_result.png)
+#### Vite
 
-#### angular 
+If we check the Vite dist folder in `dist\packages\is-vite\index.js`, we can see that it didn't use the result of the TSC bundler and instead bundled it with vite.
 
-if we go to `dist\apps\is-angular` and type `(p)npx serve` we can see that the angular also didn't use nx build result
+![Vite Dist Result](document/vite_dist_result.png)
 
-![angular dist result](document/angular_dist_result.png)
+#### TSC
 
+It's hard to tell because TSC requires a package.
 
+![TSC Dist Result](document/tsc_dist_result.png)
 
+#### Angular
+
+If we go to `dist\apps\is-angular` and type `(p)npx serve`, we can see that Angular also didn't use Nx build result.
+
+![Angular Dist Result](document/angular_dist_result.png)
 
 

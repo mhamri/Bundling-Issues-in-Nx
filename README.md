@@ -1,14 +1,20 @@
 # A repo about bundling issue in Nx
 
-##how this project is organized:
+## how this project is organized:
 
-![nx graph](document/firefox_4LhFFH3Iww.png)
+![Alt text](<document/nx graph.png>)
 
-there is an angular project named `is-angular`
-there are 4 packages, `esbuild` and `vite` and `tsc` and `rollup`
+there is an angular project named `is-angular`. And
+there are 4 packages, `esbuild`, `vite`, `tsc` and `rollup`
 
-all packages have dependency to `rollup`
+All packages have a dependency to `rollup` and 
 `rollup` is customized with a plugin to prove that none of these packages use the result of build as part of their bundling and transpilation
+
+question arise such as:
+1- the memory and load that is on each package/app build. instead of one time build and many time use, each usage graph is loaded by the each build
+2- can't enjoy faster bundlers like esbuild in combination with legacy bundlers like webpack as webpack run it's own set of optimization and esbuild make its own, but result and performance of each dosen't affect another one as each one do it's own transpiling.
+3- what exactly caching do? 
+4- some command like `ng serve` become much slower in nx as result of how all the packages need to get loaded into the webpack, instead of result of each package get loaded into that
 
 ## how to test 
 

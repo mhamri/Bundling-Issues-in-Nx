@@ -29,13 +29,13 @@ This is the package that every other package depends on and has a plugin to repl
 
 #### Esbuild
 
-If we check the Esbuild dist folder in `dist\packages\is-esbuild\index.cjs`, we can see that it didn't use the result of the TSC bundler and instead bundled it with Esbuild.
+If we check the Esbuild dist folder in `dist\packages\is-esbuild\index.cjs`, we can see that it didn't use the result of the RollUp bundler and instead bundled it with Esbuild.
 
 ![Esbuild Dist Result](document/esbuild_dist_result.png)
 
 #### Vite
 
-If we check the Vite dist folder in `dist\packages\is-vite\index.js`, we can see that it didn't use the result of the TSC bundler and instead bundled it with vite.
+If we check the Vite dist folder in `dist\packages\is-vite\index.js`, we can see that it didn't use the result of the RollUp bundler and instead bundled it with vite.
 
 ![Vite Dist Result](document/vite_dist_result.png)
 

@@ -14,7 +14,12 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@packages/is-esbuild": ["packages/is-esbuild/src/index.ts"],
+      "@packages/is-rollup": ["packages/is-rollup/src/index.ts"],
+      "@packages/is-tsc": ["packages/is-tsc/src/index.ts"],
+      "@packages/is-vite": ["packages/is-vite/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

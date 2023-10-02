@@ -1,0 +1,31 @@
+{
+  "name": "esbuild",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/is-esbuild/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/esbuild:esbuild",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/is-esbuild",
+        "main": "packages/is-esbuild/src/index.ts",
+        "tsConfig": "packages/is-esbuild/tsconfig.lib.json",
+        "assets": ["packages/is-esbuild/*.md"],
+        "generatePackageJson": true,
+        "format": ["cjs"]
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "packages/is-esbuild/**/*.ts",
+          "packages/is-esbuild/package.json"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

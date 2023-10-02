@@ -1,0 +1,33 @@
+{
+  "name": "rollup",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/is-rollup/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/rollup:rollup",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/is-rollup",
+        "main": "packages/is-rollup/src/index.ts",
+        "tsConfig": "packages/is-rollup/tsconfig.lib.json",
+        "assets": [],
+        "project": "packages/is-rollup/package.json",
+        "compiler": "swc",
+        "format": ["cjs", "esm"],
+        "rollupConfig": "packages/is-rollup/rollup.config.js"
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "packages/is-rollup/**/*.ts",
+          "packages/is-rollup/package.json"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

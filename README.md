@@ -12,7 +12,7 @@ Some questions arise, such as:
 
 1. The memory and load on each package/app build. Instead of a one-time build and many-time use, each usage graph is loaded by each builder.
 2. Can we benefit from faster bundlers like `esbuild` in combination with legacy bundlers like Webpack? Webpack runs its own set of optimizations, and `esbuild` does its own transpiling. The result and performance of each don't affect one another as each one handles its own transpilation.
-3. What exactly does caching nx do when each of the builder load the whole nx project on their own?
+3. What exactly does nx caching do when each of the builder load the whole nx project on their own?
 4. Some commands like `ng serve` become much slower in Nx as a result of how all the packages need to be loaded into Webpack, instead of the result of each package being loaded individually.
 
 ## How to Test:

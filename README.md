@@ -11,7 +11,7 @@ There is an Angular project named "is-angular", and there are four packages: `es
 
 All packages have a dependency on `rollup`, and `rollup` is customized with a plugin to ensure that none of these packages use the actual .ts file in the repo. instead I'm seeking to prove build usage as part of package/app bundling and transpilation.
 
-Some questions arise, such as:
+Unfortunately, it turned out that the dist folder in nx has no use. As a result of this test some questions arise, such as:
 
 1. The memory and load on each package/app build. Instead of a one-time build and many-time use, each usage graph is loaded by each builder.
 2. Can we benefit from faster bundlers like `esbuild` in combination with legacy bundlers like Webpack? Webpack runs its own set of optimizations, and `esbuild` does its own transpiling. The result and performance of each don't affect one another as each one handles its own transpilation.

@@ -1,5 +1,8 @@
 # A Repository About Bundling Issues in Nx
 
+I wanted to prove that nx doesn't use its build result. meaning that builds doesn't do anything with each other and you are transpiling the same file again and again with typescript compiler. 
+
+
 ## How This Project Is Organized:
 
 ![Nx Graph](document/nx_graph.png)

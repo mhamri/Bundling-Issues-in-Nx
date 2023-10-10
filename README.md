@@ -9,7 +9,7 @@ I wanted to prove that nx doesn't use its build result. meaning that builds does
 
 There is an Angular project named "is-angular", and there are four packages: `esbuild`, `vite`, `tsc`, and `rollup`.
 
-All packages have a dependency on `rollup`, and `rollup` is customized with a plugin to ensure that none of these packages use the result of the build as part of their bundling and transpilation.
+All packages have a dependency on `rollup`, and `rollup` is customized with a plugin to ensure that none of these packages use the actual .ts file in the repo. instead I'm seeking to prove build usage as part of package/app bundling and transpilation.
 
 Some questions arise, such as:
 

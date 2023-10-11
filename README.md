@@ -6,9 +6,9 @@ I wanted to prove that nx doesn't use previous build results. meaning that build
 
 There is node project named "is-node", and there are packages: `esbuild`, `vite`, `rollup`.
 
-All packages have a dependency on each other, but depends on what you want to test you can uncomment necessary usage.
+All packages have a dependency on each other, but depends on what you want to test, you can uncomment necessary usage.
 
-each package is customized with a plugin to replace a text during build. Appearance of text without the replacement of the text is an indicator that nx isn't using the result of previous build steps.
+each package is customized with a plugin to replace a text during build. the text is `__IS{nameOfPackage}__` Appearance of raw text is an indicator that nx isn't using the result of previous build steps.
 
 1. create an empty nx project
 2. create a rollup project using @nx/js

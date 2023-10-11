@@ -1,57 +1,61 @@
 # A Repository About Bundling Issues in Nx
 
-I wanted to prove that nx doesn't use its build result. meaning that builds doesn't do anything with each other and you are transpiling the same file again and again with typescript compiler. 
-
+I wanted to prove that nx doesn't use its build result. meaning that builds doesn't do anything with each other and you are transpiling the same file again and again with typescript compiler.
 
 ## How This Project Is Organized:
 
-![Nx Graph](document/nx_graph.png)
+There is node project named "is-node", and there are packages: `esbuild`, `vite`, `rollup`.
 
-There is an Angular project named "is-angular", and there are four packages: `esbuild`, `vite`, `tsc`, and `rollup`.
+All packages have a dependency on each other, but depends on what you want to test you can uncomment necessary usage.
 
-All packages have a dependency on `rollup`, and `rollup` is customized with a plugin to ensure that none of these packages use the actual .ts file in the repo. instead I'm seeking to prove build usage as part of package/app bundling and transpilation.
+each package is customized with a plugin to replace a text during build. appearance of text without the replacement is an indicator that nx isn't using the result of other build steps.
 
-Unfortunately, it turned out that the dist folder in nx has no use. As a result of this test some questions arise, such as:
+1. create an empty nx project
+2. create a rollup project using @nx/js
+3. add a plugin to rollup project to replace text during the build
+   > in rollup project we have \_\_IsRollup\_\_ and
+   > ![image](https://github.com/nrwl/nx/assets/8991783/4c6da246-315e-4ea3-a082-133f18a51c22)
 
-1. The memory and load on each package/app build. Instead of a one-time build and many-time use, each usage graph is loaded by each builder.
-2. Can we benefit from faster bundlers like `esbuild` in combination with legacy bundlers like Webpack? Webpack runs its own set of optimizations, and `esbuild` does its own transpiling. The result and performance of each don't affect one another as each one handles its own transpilation.
-3. What exactly does nx caching do when each of the builder load the whole nx project on their own?
-4. Some commands like `ng serve` become much slower in Nx as a result of how all the packages need to be loaded into Webpack, instead of the result of each package being loaded individually.
+> we set a plugin to replace the text
+> ![image](https://github.com/nrwl/nx/assets/8991783/f3c60667-9ebd-49f3-952f-cd7364e1845c)
+
+4. create a vite Project using @nx/js
+5. add a plugin to vite project to replace text during the build
+
+> in vite project we use rollup()
+> ![image](https://github.com/nrwl/nx/assets/8991783/770d7484-1859-4d7b-b276-be91285d9b96)
+
+> configure the vite plugin to replace **IsVite**
+> ![image](https://github.com/nrwl/nx/assets/8991783/bf93e34f-203f-4bab-8207-645c5a28679a)
+
+6. repeat the same thing with more type of project (in repo I created esbuild too)
+7. build vite project
+8. visit the dist folder and see if all the text in both project is replaced or not
+   ![image](https://github.com/nrwl/nx/assets/8991783/de345b30-b154-4d8b-9a15-a75aa346f240)
+
+**by here you can stop, you already saw that build is broken but if you want to test more**
+
+9. add a nodejs project with @nx/node
+10. call viteToRollup()
+    ![image](https://github.com/nrwl/nx/assets/8991783/e6387ae3-5514-4871-baab-7ae3bd20dc4a)
+
+11. see output
+    ![image](https://github.com/nrwl/nx/assets/8991783/360f2e16-3267-4a31-96cd-196eec4072f8)
 
 ## How to Test:
 
-Run `nx build is-angular --skip-nx-cache`. This will build all four packages. Let's then view the `dist` folder and dissect each one.
+Run `nx build is-node --skip-nx-cache`. This will build all four packages. Let's then view the `dist` folder and dissect each one.
 
 Let's start with the packages:
 
 #### Rollup
 
-This is the package that every other package depends on and has a plugin to replace build date time. If you check `dist\packages\is-rollup\index.cjs.js`, you can see that it works well.
-
-![Rollup Dist Result](document/rollup_dist_result.png)
+If we check the Rollup dist folder in `dist\packages\is-rollup\index.cjs.js`, we can see that only the \_\_IsRollup\_\_ is replaced none of the other text is replaced
 
 #### Esbuild
 
-If we check the Esbuild dist folder in `dist\packages\is-esbuild\index.cjs`, we can see that it didn't use the result of the RollUp bundler and instead bundled it with Esbuild.
-
-![Esbuild Dist Result](document/esbuild_dist_result.png)
+If we check the Esbuild dist folder in `dist\packages\is-esbuild\index.cjs`, we can see that only the \_\_IsEsbuild\_\_ is replaced none of the other text is replaced
 
 #### Vite
 
-If we check the Vite dist folder in `dist\packages\is-vite\index.js`, we can see that it didn't use the result of the RollUp bundler and instead bundled it with vite.
-
-![Vite Dist Result](document/vite_dist_result.png)
-
-#### TSC
-
-It's hard to tell because TSC requires a package.
-
-![TSC Dist Result](document/tsc_dist_result.png)
-
-#### Angular
-
-If we go to `dist\apps\is-angular` and type `(p)npx serve`, we can see that Angular also didn't use Nx build result.
-
-![Angular Dist Result](document/angular_dist_result.png)
-
-
+If we check the Vite dist folder in `dist\packages\is-vite\index.js`, we can see that only the \_\_IsVite\_\_ is replaced none of the other text is replaced

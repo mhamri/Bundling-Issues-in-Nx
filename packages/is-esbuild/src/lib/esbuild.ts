@@ -1,8 +1,14 @@
-import { rollup } from "@packages/is-rollup";
+// import { rollup } from '@packages/is-rollup';
+// import { vite } from '@packages/is-vite';
 
 export function esbuild(): string {
-  function notUsed(){
-    //empty
-  };
-  return 'esbuild'+rollup();
+  return '__IsEsbuild__';
 }
+
+// export function esbuildToVite(): string {
+//   return '__IsEsbuild__' + vite();
+// }
+
+// export function esbuildToRollUp(): string {
+//   return '__IsEsbuild__' + rollup();
+// }

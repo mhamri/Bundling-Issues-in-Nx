@@ -13,7 +13,8 @@
         "tsConfig": "packages/is-esbuild/tsconfig.lib.json",
         "assets": ["packages/is-esbuild/*.md"],
         "generatePackageJson": true,
-        "format": ["cjs"]
+        "format": ["cjs"],
+        "esbuildConfig": "packages/is-esbuild/esbuild.config.js"
       }
     },
     "lint": {

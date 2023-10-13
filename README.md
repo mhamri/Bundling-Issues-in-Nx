@@ -2,6 +2,10 @@
 
 I wanted to prove that nx doesn't use previous build results. meaning that builds doesn't do anything with each other and you are transpiling the same file again and again with different compilers.
 
+### Updates:
+
+2023-10-13: added a new vite project named `is-vite2` and changed the [buildlibsfromsource](https://nx.dev/nx-api/vite/executors/build#buildlibsfromsource) to `false` and still it didn't worked
+
 ## How This Project Is Organized:
 
 There is node project named "is-node", and there are packages: `esbuild`, `vite`, `rollup`.

@@ -1,14 +1,14 @@
 {
-  "name": "vite",
+  "name": "is-vite2",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "packages/is-vite/src",
+  "sourceRoot": "packages/is-vite2/src",
   "projectType": "library",
   "targets": {
     "build": {
       "executor": "@nx/vite:build",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/packages/is-vite",
+        "outputPath": "dist/packages/is-vite2",
         "buildLibsFromSource": false
       }
     },
@@ -17,8 +17,8 @@
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": [
-          "packages/is-vite/**/*.ts",
-          "packages/is-vite/package.json"
+          "packages/is-vite2/**/*.ts",
+          "packages/is-vite2/package.json"
         ]
       }
     }
